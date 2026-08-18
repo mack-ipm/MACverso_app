@@ -31,7 +31,9 @@
 
   .planet{ position:fixed; z-index:0; pointer-events:none; will-change:transform; }
   @media (max-width:640px){
-    .planet{ z-index:6; }
+    .planet{ z-index:4; }
+    .hero{ z-index:2; }
+    section:not(.hero), footer{ z-index:5; }
   }
   .planet img{ width:100%; display:block; }
   .p-rust{ width:150px; top:2%; left:-46px; }
