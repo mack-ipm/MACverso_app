@@ -30,16 +30,22 @@
   #stars{ position:fixed; inset:0; z-index:0; pointer-events:none; }
 
   .planet{ position:fixed; z-index:0; pointer-events:none; will-change:transform; }
-  @media (max-width:640px){
-    .planet{ z-index:4; }
-    .hero{ z-index:2; }
-    section:not(.hero), footer{ z-index:5; }
-  }
   .planet img{ width:100%; display:block; }
   .p-rust{ width:150px; top:2%; left:-46px; }
   .p-rose{ width:220px; top:0; right:-70px; }
   .p-gold{ width:120px; bottom:16%; right:-26px; }
   .p-teal{ width:140px; bottom:2%; left:-40px; }
+  @media (max-width:640px){
+    .planet{ z-index:4; }
+    .hero{ z-index:auto; }
+    .hero .logo-shot{ position:relative; z-index:1; }
+    .hero .eyebrow, .hero h1, .hero p.lede, .hero .scrollcue{ position:relative; z-index:5; }
+    section:not(.hero), footer{ z-index:5; }
+    .p-rust{ width:100px; left:-30px; top:6%; }
+    .p-rose{ width:130px; right:-36px; top:4%; }
+    .p-gold{ width:92px; right:-18px; }
+    .p-teal{ width:104px; left:-26px; }
+  }
 
   section, footer{ position:relative; z-index:3; }
   .wrap{ max-width:640px; margin:0 auto; padding:0 28px; }
