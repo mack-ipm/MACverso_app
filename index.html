@@ -144,10 +144,30 @@
   .hero p.lede{ font-size:15.5px; color:var(--star); max-width:400px; margin:16px auto 0; line-height:1.6; }
   .scrollcue{
     margin-top:48px; font-size:11px; letter-spacing:.22em; color:var(--star);
-    display:flex; flex-direction:column; align-items:center; gap:8px; font-family:'Poppins',sans-serif;
+    display:flex; flex-direction:column; align-items:center; gap:6px; font-family:'Poppins',sans-serif;
+    opacity:0; animation:scrollcueIn 1s cubic-bezier(.2,.8,.2,1) 1.4s forwards;
   }
-  .scrollcue span{ width:1px; height:32px; background:linear-gradient(var(--star-dim),transparent); animation:cue 1.8s ease-in-out infinite; }
-  @keyframes cue{ 0%,100%{ transform:scaleY(.6); opacity:.4; } 50%{ transform:scaleY(1); opacity:1; } }
+  @keyframes scrollcueIn{ to{ opacity:1; } }
+  .scrollcue .arrow{
+    width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    border:1.5px solid var(--violet); cursor:pointer;
+    background:rgba(139,92,246,0.14);
+    box-shadow:0 0 22px rgba(139,92,246,0.45);
+    animation:bounceArrow 1.8s ease-in-out infinite;
+    transition:border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .scrollcue .arrow svg{ width:22px; height:22px; color:#fff; transition:transform .25s ease; }
+  .scrollcue:hover .arrow{
+    border-color:var(--magenta); background:rgba(232,56,196,0.22);
+    box-shadow:0 0 32px rgba(232,56,196,0.65);
+    animation-play-state:paused; transform:scale(1.14);
+  }
+  .scrollcue:hover .arrow svg{ transform:translateY(3px); }
+  @keyframes bounceArrow{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
+  @media (prefers-reduced-motion: reduce){
+    .scrollcue{ opacity:1; animation:none; }
+    .scrollcue .arrow{ animation:none; }
+  }
 
   /* ---------- announcement box ---------- */
   .section{ padding:88px 0; }
@@ -199,6 +219,15 @@
   .qr img{ width:100%; display:block; filter:brightness(0) invert(1); }
   .download-box .hint{ font-size:13px; color:var(--star); margin-bottom:20px; }
   .download-box .hint b{ color:var(--star); }
+  .code-chip{
+    display:inline-flex; align-items:center; gap:5px; background:var(--violet); color:#fff; font-weight:800;
+    font-family:'Poppins',sans-serif; letter-spacing:.03em; padding:2px 9px;
+    border-radius:6px; font-size:.95em; border:none; cursor:pointer;
+    transition:background .2s ease, transform .15s ease;
+  }
+  .code-chip:hover{ background:#7c4de0; }
+  .code-chip:active{ transform:scale(.94); }
+  .code-chip.copied{ background:#22a06b; }
   .store-row{ display:flex; flex-direction:column; gap:12px; }
   .store-btn{
     display:flex; align-items:center; justify-content:center; gap:10px; padding:13px 20px;
@@ -236,7 +265,9 @@
     <span class="lines"><span style="transition-delay:.2s">com você.</span></span>
   </h1>
   <p class="lede">Sua jornada acaba de ganhar uma nova dimensão. Seja protagonista do seu desenvolvimento em qualquer lugar.</p>
-  <div class="scrollcue"><span></span>EXPLORAR</div>
+  <div class="scrollcue" id="scrollCue">
+    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+  </div>
 </section>
 
 <section class="pin-wrap" id="pinWrap">
@@ -257,15 +288,14 @@
     <div class="stats reveal d1">
       <div class="stat"><div class="num">4</div><div class="lbl">áreas de<br>conhecimento</div></div>
       <div class="stat"><div class="num">24h</div><div class="lbl">disponível<br>por dia</div></div>
-      <div class="stat"><div class="num">100%</div><div class="lbl">no seu<br>bolso</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">na palma<br>da mão</div></div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <div class="eyebrow center reveal">Tutorial em vídeo</div>
-    <h2 class="reveal d1">Veja como é fácil<br><i>usar o MACverso.</i></h2>
+    <h2 class="reveal d1">Veja como é fácil<br><i>baixar o MACverso.</i></h2>
 
     <div class="tutorial-slot reveal d2" id="tutorialSlot">
       <div class="tutorial-placeholder">
@@ -285,7 +315,7 @@
 
     <div class="download-box reveal d2">
       <div class="qr"><img src="https://raw.githubusercontent.com/mack-ipm/MACverso_app/main/MACverso.svg" alt="QR code para baixar o app"></div>
-      <p class="hint">É fácil, rápido e prático!<br>Escaneie o QR Code ou busque por <b>"Learningflix APP"</b> na sua loja e use o código <b>LFMA49</b> para acessar.</p>
+      <p class="hint">É fácil, rápido e prático!<br>Escaneie o QR Code ou busque por <b>"Learningflix APP"</b> na sua loja e use o código <button type="button" class="code-chip" id="codeChip" data-code="LFMA49" data-label="LFMA49" title="Toque para copiar">LFMA49</button> para acessar.</p>
       <div class="store-row">
         <a class="store-btn" href="https://apps.apple.com/us/app/learningflix-app/id6758867348" target="_blank" rel="noopener" data-store="apple">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.475 2.174-1.238 2.99-.83.883-2.144 1.55-3.31 1.462-.13-1.14.464-2.324 1.234-3.09.826-.83 2.28-1.5 3.314-1.362zM20.6 17.13c-.487 1.13-.72 1.632-1.35 2.63-.876 1.39-2.113 3.124-3.645 3.14-1.36.014-1.71-.885-3.556-.875-1.845.01-2.23.89-3.59.876-1.53-.016-2.7-1.58-3.577-2.97C2.02 16.98 1.6 12.06 3.19 9.31c1.107-1.94 2.85-3.07 4.478-3.07 1.66 0 2.7.9 4.075.9 1.33 0 2.14-.9 4.06-.9 1.45 0 2.98.79 4.07 2.15-3.58 1.96-3 6.87.727 8.74z"/></svg>
@@ -460,6 +490,55 @@
         p.style.transform = `translateY(${y*speed}px)`;
       });
     }, {passive:true});
+  }
+
+  /* ---------- scroll cue: scroll down far enough that content is actually visible ---------- */
+  const scrollCue = document.getElementById('scrollCue');
+  if(scrollCue){
+    scrollCue.addEventListener('click', ()=>{
+      const pinWrapEl = document.getElementById('pinWrap');
+      let target;
+      if(pinWrapEl){
+        const rect = pinWrapEl.getBoundingClientRect();
+        target = window.scrollY + rect.top + window.innerHeight * 0.22;
+      } else {
+        target = window.scrollY + window.innerHeight;
+      }
+      window.scrollTo({top: target, left: 0, behavior: reduceMotion ? 'auto' : 'smooth'});
+    });
+  }
+
+  /* ---------- copy access code on tap ---------- */
+  const codeChip = document.getElementById('codeChip');
+  if(codeChip){
+    codeChip.addEventListener('click', async ()=>{
+      const code = codeChip.dataset.code;
+      let copied = false;
+      try{
+        await navigator.clipboard.writeText(code);
+        copied = true;
+      }catch(e){
+        try{
+          const ta = document.createElement('textarea');
+          ta.value = code;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          copied = true;
+        }catch(e2){ copied = false; }
+      }
+      if(copied){
+        codeChip.textContent = 'Copiado!';
+        codeChip.classList.add('copied');
+        setTimeout(()=>{
+          codeChip.textContent = codeChip.dataset.label;
+          codeChip.classList.remove('copied');
+        }, 1500);
+      }
+    });
   }
 
   /* ---------- tutorial video: shows automatically once the file exists in the repo ---------- */
