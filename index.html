@@ -191,27 +191,15 @@
   .section p.body-copy{ font-size:15.5px; line-height:1.7; color:var(--star-dim); text-align:center; max-width:440px; margin:14px auto 0; }
   .center{ text-align:center; }
 
-  /* ---------- tutorial video slot (placeholder until the file is uploaded) ---------- */
+  /* ---------- tutorial video (Vimeo embed) ---------- */
   .tutorial-slot{
     position:relative; width:min(320px,82vw); aspect-ratio:9/16; margin:44px auto 0;
-    border-radius:22px; overflow:hidden; background:rgba(245,243,255,0.03);
-    border:1px dashed var(--line);
+    border-radius:22px; overflow:hidden; background:#000;
+    box-shadow:0 0 26px rgba(139,92,246,0.25);
   }
-  .tutorial-placeholder{
-    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:14px; text-align:center; padding:20px;
+  .tutorial-slot iframe{
+    position:absolute; inset:0; width:100%; height:100%; border:0; display:block;
   }
-  .tutorial-icon{
-    width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    background:rgba(245,243,255,0.06); border:1px solid var(--line); color:var(--star-dim); font-size:18px;
-    padding-left:4px;
-  }
-  .tutorial-placeholder p{ color:var(--star-dim); font-size:13.5px; }
-  .tutorial-slot video{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none; background:#000;
-  }
-  .tutorial-slot.has-video .tutorial-placeholder{ display:none; }
-  .tutorial-slot.has-video video{ display:block; }
 
   /* ---------- download ---------- */
   .download-box{ margin-top:8px; padding:30px 24px; border-radius:22px; border:1px solid var(--line); background:rgba(245,243,255,0.03); text-align:center; }
@@ -298,13 +286,7 @@
     <h2 class="reveal d1">Veja como é fácil<br><i>baixar o MACverso.</i></h2>
 
     <div class="tutorial-slot reveal d2" id="tutorialSlot">
-      <div class="tutorial-placeholder">
-        <div class="tutorial-icon">&#9654;</div>
-        <p>Vídeo tutorial em breve</p>
-      </div>
-      <video id="tutorialVideo" muted playsinline controls preload="metadata">
-        <source src="https://raw.githubusercontent.com/mack-ipm/MACverso_app/main/tutorial.mp4" type="video/mp4">
-      </video>
+      <iframe src="https://player.vimeo.com/video/1221095798?h=2ef823b32a&title=0&byline=0&portrait=0&dnt=1" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy" title="Tutorial: como baixar o MACverso"></iframe>
     </div>
   </div>
 </section>
@@ -539,18 +521,6 @@
         }, 1500);
       }
     });
-  }
-
-  /* ---------- tutorial video: shows automatically once the file exists in the repo ---------- */
-  const tutorialSlot = document.getElementById('tutorialSlot');
-  const tutorialVideo = document.getElementById('tutorialVideo');
-  if(tutorialSlot && tutorialVideo){
-    tutorialVideo.addEventListener('loadeddata', ()=>{
-      tutorialSlot.classList.add('has-video');
-    });
-    tutorialVideo.addEventListener('error', ()=>{
-      tutorialSlot.classList.remove('has-video');
-    }, true);
   }
 
   /* ---------- pinned word scroll-scrub (Apple product-page style) ---------- */
