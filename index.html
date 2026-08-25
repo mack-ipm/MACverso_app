@@ -555,7 +555,6 @@
   if(heroVideo){
     heroVideo.addEventListener('ended', ()=>{
       heroVideo.pause();
-      heroVideo.currentTime = 0;
     });
     // Safari sometimes needs an explicit play() call even with autoplay set
     const tryPlay = () => { heroVideo.play().catch(()=>{}); };
